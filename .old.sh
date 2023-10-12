@@ -3,9 +3,9 @@
 main() {
   local cache="$_CACHE_DIR"
 
-  printf '| %-25s | %-12s | %-12s | %-8s | %-8s | %-8s | %-8s | %-8s |\n' \
+  printf '| %-25s | %-12s | %-12s | %8s | %8s | %8s | %8s | %8s |\n' \
     'Symbol' 'Date' 'Price' '1M' '6M' '1Y' 'YTD' 'ALL'
-  printf '| %-25s | %-12s | %-12s | %-8s | %-8s | %-8s | %-8s | %-8s |\n' \
+  printf '| %-25s | %-12s | %-12s | %8s | %8s | %8s | %8s | %8s |\n' \
     '---' '---' '---' '---' '---' '---' '---' '---'
 
   local symbol nav_json
@@ -57,7 +57,7 @@ print() {
   y1="$(__jq '.performances[] | select(.period == "1Y") | .percentChange // 999' "$perf_json")"
   all="$(__jq '.performances[] | select(.period == "FIRSTTRADE") | .percentChange // 999' "$perf_json")"
 
-  printf '| %-12s | %-12s | %-8s | %-8s | %-8s | %-8s | %-8s |\n' \
+  printf '| %-12s | %-12s | %8s | %8s | %8s | %8s | %8s |\n' \
     "$(__date_format "$date")" "$price" \
     "$(printf '%.2f' "$m1")" \
     "$(printf '%.2f' "$m6")" \

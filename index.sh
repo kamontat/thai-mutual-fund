@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
 _FIN_PATH_PREV="$PWD"
-_FIN_PATH_TMP="${FIN_PATH_TMP:-${TMPDIR:-/tmp}/.finnomena.caches}"
+_FIN_PATH_TMP="${FIN_PATH_TMP:-${TMPDIR:-/tmp}/.finnomena.caches.v1}"
 
 _FIN_CONF_DEFAULT=(
   ## Expires is number of seconds for caching of fund will expires
-  "expires=3600"
+  "expires=86400" # 1 day
 )
 
 ## FUNDS = "<NAME>; <CONFIGS>" where configs are
 ##         space separated `<key>=<value>`
 ##         e.g. expires=3600 example=true
 _FIN_CONF_FUNDS=(
-  "K-CHANGE-SSF; expires=10000"
-  "K-USA-SSF"
+  "K-CHANGE-SSF"
+  "K-USA-SSF; expires=172800" # 2 day
   "KFGTECH-A"
   "KFGBRANSSF"
   "KFS100SSF"
@@ -34,10 +34,21 @@ cd "$(dirname "$0")" || exit 1
 source "$PWD/libs/logger.sh" || exit 1
 # shellcheck source=/dev/null
 source "$PWD/libs/caches.sh" || exit 1
+# shellcheck source=/dev/null
+source "$PWD/libs/configs.sh" || exit 1
+# shellcheck source=/dev/null
+source "$PWD/libs/commands.sh" || exit 1
+
+logger_init
+cache_init
 
 _FIN_EXIT_CODE=0
-"$PWD/scripts/main.sh"
+# shellcheck source=/dev/null
+source "$PWD/scripts/main.sh"
 _FIN_EXIT_CODE="$?"
+
+cache_clean
+logger_clean
 
 cd "$_FIN_PATH_PREV" || exit 1
 unset _FIN_PATH_PREV _FIN_PATH_TMP
