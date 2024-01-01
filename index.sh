@@ -12,6 +12,7 @@ _FIN_CONF_DEFAULT=(
 ##         space separated `<key>=<value>`
 ##         e.g. expires=3600 example=true
 _FIN_CONF_FUNDS=(
+  "ES-SETESG-ThaiESG-A"
   "K-CHANGE-SSF"
   "K-USA-SSF; expires=172800" # 2 day
   "KFGTECH-A"

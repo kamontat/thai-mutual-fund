@@ -39,11 +39,11 @@ __print_result() {
   date="$(__jq ".date" "$nav_json")"
 
   local ytd m1 m6 y1 all
-  ytd="$(__jq '.performances[] | select(.period == "YTD") | .percentChange // 999' "$perf_json")"
-  m1="$(__jq '.performances[] | select(.period == "1M") | .percentChange // 999' "$perf_json")"
-  m6="$(__jq '.performances[] | select(.period == "6M") | .percentChange // 999' "$perf_json")"
-  y1="$(__jq '.performances[] | select(.period == "1Y") | .percentChange // 999' "$perf_json")"
-  all="$(__jq '.performances[] | select(.period == "FIRSTTRADE") | .percentChange // 999' "$perf_json")"
+  ytd="$(__jq 'if .performances == null then 0 else .performances[] | select(.period == "YTD") | .percentChange // 999 end' "$perf_json")"
+  m1="$(__jq 'if .performances == null then 0 else .performances[] | select(.period == "1M") | .percentChange // 999 end' "$perf_json")"
+  m6="$(__jq 'if .performances == null then 0 else .performances[] | select(.period == "6M") | .percentChange // 999 end' "$perf_json")"
+  y1="$(__jq 'if .performances == null then 0 else .performances[] | select(.period == "1Y") | .percentChange // 999 end' "$perf_json")"
+  all="$(__jq 'if .performances == null then 0 else .performances[] | select(.period == "FIRSTTRADE") | .percentChange // 999 end' "$perf_json")"
 
   printf '| %-25s | %-12s | %12s | %8s | %8s | %8s | %8s | %8s |\n' \
     "$symbol" \
