@@ -2,12 +2,26 @@
 
 # set -x
 
+output=table
+
+__main() {
+  case "$output" in
+    qif) format_header_table ;;
+    csv) format_header_table ;;
+    *) format_header_table ;;
+  esac
+}
+
 __header() {
   echo
-  printf '| %-25s | %-12s | %12s | %8s | %8s | %8s | %8s | %8s |\n' \
-    'Symbol' 'Date' 'Price' '1M' '6M' '1Y' 'YTD' 'ALL'
-  printf '| %-25s | %-12s | %12s | %8s | %8s | %8s | %8s | %8s |\n' \
-    '---' '---' '---' '---' '---' '---' '---' '---'
+  if [[ "$output" == "table" ]]; then
+    printf '| %-25s | %-12s | %12s | %8s | %8s | %8s | %8s | %8s |\n' \
+      'Symbol' 'Date' 'Price' '1M' '6M' '1Y' 'YTD' 'ALL'
+    printf '| %-25s | %-12s | %12s | %8s | %8s | %8s | %8s | %8s |\n' \
+      '---' '---' '---' '---' '---' '---' '---' '---'
+  elif [[ "$output" == "csv" ]]; then
+    echo 'Symbol,Date,Price,1M,6M,1Y,YTD,ALL'
+  fi
 }
 
 __symbol() {
@@ -45,15 +59,27 @@ __print_result() {
   y1="$(__jq 'if .performances == null then 0 else .performances[] | select(.period == "1Y") | .percentChange // 999 end' "$perf_json")"
   all="$(__jq 'if .performances == null then 0 else .performances[] | select(.period == "FIRSTTRADE") | .percentChange // 999 end' "$perf_json")"
 
-  printf '| %-25s | %-12s | %12s | %8s | %8s | %8s | %8s | %8s |\n' \
-    "$symbol" \
-    "$(cmd_symbol_date "$date")" \
-    "$(printf '%.4f' "$price")" \
-    "$(printf '%.2f' "$m1")" \
-    "$(printf '%.2f' "$m6")" \
-    "$(printf '%.2f' "$y1")" \
-    "$(printf '%.2f' "$ytd")" \
-    "$(printf '%.2f' "$all")"
+  if [[ "$output" == "table" ]]; then
+    printf '| %-25s | %-12s | %12s | %8s | %8s | %8s | %8s | %8s |\n' \
+      "$symbol" \
+      "$(cmd_symbol_date "$date")" \
+      "$(printf '%.4f' "$price")" \
+      "$(printf '%.2f' "$m1")" \
+      "$(printf '%.2f' "$m6")" \
+      "$(printf '%.2f' "$y1")" \
+      "$(printf '%.2f' "$ytd")" \
+      "$(printf '%.2f' "$all")"
+  elif [[ "$output" == "csv" ]]; then
+    printf '%s,%s,%s,%s,%s,%s,%s,%s\n' \
+      "$symbol" \
+      "$(cmd_symbol_date "$date")" \
+      "$(printf '%.4f' "$price")" \
+      "$(printf '%.2f' "$m1")" \
+      "$(printf '%.2f' "$m6")" \
+      "$(printf '%.2f' "$y1")" \
+      "$(printf '%.2f' "$ytd")" \
+      "$(printf '%.2f' "$all")"
+  fi
 }
 
 __header

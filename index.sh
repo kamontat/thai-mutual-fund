@@ -6,6 +6,7 @@ _FIN_PATH_TMP="${FIN_PATH_TMP:-${TMPDIR:-/tmp}/.finnomena.caches.v1}"
 _FIN_CONF_DEFAULT=(
   ## Expires is number of seconds for caching of fund will expires
   "expires=86400" # 1 day
+  "format=table" # table | csv | qif
 )
 
 ## FUNDS = "<NAME>; <CONFIGS>" where configs are

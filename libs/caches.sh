@@ -10,8 +10,8 @@ cache_init() {
     ts_prev="$(cat "$created")"
     ts_diff="$((ts - ts_prev))"
 
-    ## 1 hour
-    [ $ts_diff -gt 3600 ] && rm -r "$root" &&
+    ## 1 days
+    [ $ts_diff -gt 86400 ] && rm -r "$root" &&
       logger_info "Clean old cache directory"
   fi
 
