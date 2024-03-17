@@ -10,8 +10,7 @@ cmd_fetch_nav() {
 }
 
 cmd_fetch_perf() {
-  local symbol="${1// /%2520}" input="$2" output="$3" expires="$4"
-
+  local symbol="${1// /%20}" input="$2" output="$3" expires="$4"
   local date
   date="$(__jq ".date" "$input")"
   date="$(cmd_symbol_date "$date")"
