@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cmd_fetch_nav() {
-  local symbol="${1// /%2520}" output="$2" expires="$3"
+  local symbol="${1// /%20}" output="$2" expires="$3"
   ## https://portal.settrade.com/settrade/fund-info
   __curl \
     "https://api.settrade.com/api/mutual-fund/$symbol/nav" \
