@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cmd_fetch_nav() {
-  local symbol="${1// /%20}" output="$2" expires="$3"
+  local symbol="$1" output="$2" expires="$3"
   ## https://portal.settrade.com/settrade/fund-info
   __curl \
     "https://api.settrade.com/api/mutual-fund/$symbol/nav" \
@@ -10,7 +10,7 @@ cmd_fetch_nav() {
 }
 
 cmd_fetch_perf() {
-  local symbol="${1// /%20}" input="$2" output="$3" expires="$4"
+  local symbol="$1" input="$2" output="$3" expires="$4"
   local date
   date="$(__jq ".date" "$input")"
   date="$(cmd_symbol_date "$date")"
@@ -22,6 +22,13 @@ cmd_fetch_perf() {
 
 cmd_symbol_date() {
   date -jf "%Y-%m-%dT%H:%M:%S+07:00" "$1" +%d/%m/%Y
+}
+
+__symbol_encode() {
+  local symbol="$1"
+  symbol="${symbol// /%20}"
+  symbol="${symbol//\//%2F}"
+  printf '%s' "$symbol"
 }
 
 __jq() {

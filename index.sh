@@ -6,7 +6,7 @@ _FIN_PATH_TMP="${FIN_PATH_TMP:-${TMPDIR:-/tmp}/.finnomena.caches.v1}"
 _FIN_CONF_DEFAULT=(
   ## Expires is number of seconds for caching of fund will expires
   "expires=86400" # 1 day
-  "format=table" # table | csv | qif
+  "format=table"  # table | csv | qif
 )
 
 ## FUNDS = "<NAME>; <CONFIGS>" where configs are
@@ -20,8 +20,10 @@ _FIN_CONF_FUNDS=(
   "KFGBRANSSF"
   "KFS100SSF"
   "KKP ACT FIXED-SSF"
+  "KKP GB THAI ESG"
   "KKP INCOME-H-SSF"
   "KKP PGE-H-SSF"
+  "KTAG70/30-THAIESG"
   "ONE-UGG-ASSF"
   "PRINCIPAL iPROPEN-SSF"
   "SCBGOLDH-SSF"

@@ -6,9 +6,9 @@ output=table
 
 __main() {
   case "$output" in
-    qif) format_header_table ;;
-    csv) format_header_table ;;
-    *) format_header_table ;;
+  qif) format_header_table ;;
+  csv) format_header_table ;;
+  *) format_header_table ;;
   esac
 }
 
@@ -33,6 +33,7 @@ __symbol() {
     config="${raw#*; }"
     [[ "$symbol" == "$config" ]] && config=""
 
+    symbol="$(__symbol_encode "$symbol")"
     expires="$(config_get "$config" "expires")"
 
     nav_json="$(cache_file "symbols/nav.$symbol.json")"
