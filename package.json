@@ -1,0 +1,14 @@
+{
+  "name": "fund-check",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@biomejs/biome": "2.3.8",
+    "@types/bun": "latest",
+    "file-system-cache": "3.0.0-alpha.8"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
