@@ -13,7 +13,6 @@ export const FUNDS: Array<FundInput> = [
 	{
 		symbol: "ES-SETESG-ThaiESG-A",
 	},
-
 	{
 		symbol: "K-CHANGE-SSF",
 	},
