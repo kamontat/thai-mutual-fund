@@ -2,10 +2,10 @@ import { fetchFundData, getFundInput } from "./src/apis"
 import { globalCache } from "./src/cache"
 import type { FundInput, FundOutput, Settings } from "./src/models"
 import { reportFund } from "./src/report"
-import { chunk, unchunk } from "./src/utils"
+import { chunk } from "./src/utils"
 
 export const DEFAULT_SETTINGS: Required<Settings> = {
-	ttl: 1000 * 60 * 60 * 24 * 1, // 1 day
+	ttl: 60 * 60 * 24 * 1, // 1 day in seconds
 	format: "table",
 }
 
